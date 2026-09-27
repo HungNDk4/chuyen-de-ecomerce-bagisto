@@ -34,29 +34,75 @@ Nhóm sử dụng hệ sinh thái này làm **môi trường thực nghiệm đ�
 ### Yêu cầu tiên quyết:
 * PHP >= 8.1 (bật đầy đủ extension: `fileinfo`, `intl`, `gd`, `zip`, `pdo_mysql`)
 * Composer, Node.js & MySQL (Laragon/XAMPP)
+## 4. HƯỚNG DẪN CÀI ĐẶT HỆ THỐNG CHI TIẾT (DÀNH CHO THÀNH VIÊN & NGƯỜI DÙNG)
 
-### Các bước khởi chạy:
+> **LƯU Ý QUAN TRỌNG:** Dự án đã có sẵn Database hoàn chỉnh trong file `mockdata/database1.1.sql`. Thành viên **KHÔNG** chạy lệnh `bagisto:install` để tránh xung đột môi trường. Hãy làm tuần tự theo 4 bước dưới đây:
 
-```bash
-# 1. Cài đặt các gói phụ thuộc
+### Bước 1: Yêu cầu môi trường bắt buộc (Laragon / XAMPP)
+* Bật **Laragon** (hoặc XAMPP), khởi động **Apache** và **MySQL**.
+* **Kích hoạt các Extension PHP bắt buộc:**
+  * Nhấp chuột phải trên màn hình Laragon -> **PHP** -> **Extensions**.
+  * Tích chọn đủ các extension: `pdo_mysql`, `fileinfo`, `intl`, `gd`, `zip`.
+
+### Bước 2: Nạp dữ liệu Cơ sở dữ liệu mẫu (10 giây)
+1. Mở phần mềm **HeidiSQL** (có sẵn trong Laragon) hoặc **phpMyAdmin** (`http://localhost/phpmyadmin`).
+2. Tạo một Database mới đặt tên là: `bagisto_db` (định dạng `utf8mb4_unicode_ci`).
+3. Mở file `mockdata/database1.1.sql` có trong thư mục dự án và thực thi (Execute / Import) toàn bộ vào database `bagisto_db`.
+
+### Bước 3: Khởi tạo mã nguồn & Cấu hình môi trường (.env)
+Mở Terminal của Laragon tại thư mục dự án (`bagisto-store`), chạy lần lượt:
+
+```
+# 1. Cài đặt các gói phụ thuộc PHP
 composer install
-npm install && npm run build
 
-# 2. Cấu hình môi trường
-# Tạo file .env từ .env.example và điền thông tin Database:
-# DB_DATABASE=bagisto_db, DB_USERNAME=root, DB_PASSWORD=
+# 2. Tạo file cấu hình môi trường
+copy .env.example .env
 
-# 3. Khởi tạo khóa ứng dụng và cơ sở dữ liệu
+# 3. Tạo khóa bảo mật ứng dụng
 php artisan key:generate
-php artisan migrate:fresh --seed
+```
+Mở file .env kiểm tra lại cấu hình kết nối CSDL:
 
-# 4. Tạo liên kết thư mục ảnh lưu trữ
+```
+APP_NAME=Bagisto
+APP_URL=[http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=bagisto_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+(Nếu dùng Laragon mặc định, dòng DB_PASSWORD= để trống).
+Bước 4: Xử lý hiển thị hình ảnh & Khởi chạy máy chủ
+```
+# 1. Tạo symlink liên kết thư mục chứa ảnh
 php artisan storage:link
+
+# 2. Xóa sạch bộ nhớ đệm cache hệ thống
 php artisan optimize:clear
 
-# 5. Khởi động máy chủ phát triển
+# 3. Khởi động máy chủ ứng dụng
 php artisan serve
 ```
+⚠️ KHẮC PHỤC SỰ CỐ THƯỜNG GẶP (TROUBLESHOOTING)
+
+Lỗi vỡ ảnh banner / Không hiển thị hình ảnh sản phẩm:
+
+Do đặc thù môi trường Windows chặn tạo symlink tự động, nếu trang web bị gãy ảnh (chỉ hiện icon ô vuông hoặc text alt):
+
+Mở Windows Explorer, vào thư mục: storage/app/public/
+
+Sao chép (Copy) toàn bộ thư mục bên trong (gồm themes, products, banners...) và dán trực tiếp (Paste) vào thư mục: public/storage/ (nếu chưa có thư mục storage trong public thì tạo mới).
+
+Chạy lại lệnh: php artisan optimize:clear và nhấn tổ hợp phím Ctrl + F5 trên trình duyệt.
+
+Lỗi php hoặc composer không nhận lệnh trong Terminal:
+
+Hãy mở trực tiếp cửa sổ dòng lệnh bằng cách bấm nút Terminal ở góc phải giao diện Laragon để nạp đầy đủ biến môi trường hệ thống.
+
 
 ## 5. THÔNG TIN TRUY CẬP THỬ NGHIỆM
 
@@ -67,3 +113,7 @@ Admin Panel (Quản trị): [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/
 Email: admin@example.com
 
 Password: admin123
+
+
+
+
