@@ -4,7 +4,7 @@
 * **Tên đề tài:** Nghiên cứu kiến trúc, quy trình phát triển và tối ưu hóa hệ quản trị cơ sở dữ liệu cho hệ thống thương mại điện tử chuyên nghiệp.
 * **Thời gian thực hiện:** Tháng 09/2026 – Tháng 10/2026
 * **Danh sách thành viên nhóm:**
-  1. Nguyễn Đình Hùng (Leader / Tech Lead) - Quản trị mã nguồn & Triển khai hạ tầng
+  1. Nguyễn Duy Hùng (Leader / Tech Lead) - Quản trị mã nguồn & Triển khai hạ tầng
   2. Thành viên 2 - Quản lý dự án (Jira) & Phân tích nghiệp vụ (BA)
   3. Thành viên 3 - Đảm bảo chất lượng (QA/Tester) & Giao diện người dùng
   4. Thành viên 4 - Khảo sát cấu trúc dữ liệu & Thiết kế lược đồ ERD
