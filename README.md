@@ -13,7 +13,7 @@
 ---
 
 ## 2. TUYÊN BỐ LIÊM CHÍNH HỌC THUẬT (ACADEMIC INTEGRITY)
-Hệ thống mã nguồn này được kế thừa và triển khai dựa trên nền tảng thương mại điện tử mã nguồn mở **Bagisto (Laravel Framework + Vue.js)**. 
+Hệ thống mã nguồn này được kế thừa và triển khai dựa trên nền tảng thương mại điện tử mã nguồn mở **Bagisto (Laravel Framework + Vue.js)**.
 
 Nhóm sử dụng hệ sinh thái này làm **môi trường thực nghiệm đối chứng** để phục vụ công tác phân tích học thuật cho 02 học phần:
 * **Chuyên đề 1 (Hệ Quản Trị Cơ Sở Dữ Liệu):** Khảo sát cấu trúc quan hệ RDBMS, mô hình hóa dữ liệu (ERD), đánh giá cơ chế bảo mật băm mật khẩu Bcrypt, phân tích giải pháp tách tải dữ liệu Media lên Cloud (Cloudinary/AWS S3) và tối ưu hóa truy vấn Full-text Search.
@@ -37,6 +37,7 @@ Nhóm sử dụng hệ sinh thái này làm **môi trường thực nghiệm đ�
 
 ### Các bước khởi chạy:
 
+```bash
 # 1. Cài đặt các gói phụ thuộc
 composer install
 npm install && npm run build
@@ -55,10 +56,14 @@ php artisan optimize:clear
 
 # 5. Khởi động máy chủ phát triển
 php artisan serve
+```
 
+## 5. THÔNG TIN TRUY CẬP THỬ NGHIỆM
 
+Storefront (Khách hàng): [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
---
-Storefront: http://127.0.0.1:8000
+Admin Panel (Quản trị): [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
-Admin Panel: http://127.0.0.1:8000/admin (Tài khoản: admin@example.com / admin123)
+Email: admin@example.com
+
+Password: admin123
