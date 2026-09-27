@@ -36,7 +36,7 @@ Nhóm sử dụng hệ sinh thái này làm **môi trường thực nghiệm đ�
 * Composer, Node.js & MySQL (Laragon/XAMPP)
 
 ### Các bước khởi chạy:
-```bash
+
 # 1. Cài đặt các gói phụ thuộc
 composer install
 npm install && npm run build
@@ -55,3 +55,10 @@ php artisan optimize:clear
 
 # 5. Khởi động máy chủ phát triển
 php artisan serve
+
+
+
+--
+Storefront: http://127.0.0.1:8000
+
+Admin Panel: http://127.0.0.1:8000/admin (Tài khoản: admin@example.com / admin123)
