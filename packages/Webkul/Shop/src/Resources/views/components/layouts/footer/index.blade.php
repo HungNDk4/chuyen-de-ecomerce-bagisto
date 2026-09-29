@@ -15,126 +15,145 @@
     $columns = collect($section?->getTypeInstance()?->sanitize((array) $section->options) ?? [])
         ->map(fn ($links) => array_filter((array) $links, fn ($link) => filled($link['title'] ?? null)))
         ->filter();
+
+    $col1Links = $columns->get('column_1') ?? [
+        ['title' => 'Về chúng tôi', 'url' => url('/page/about-us')],
+        ['title' => 'Chăm sóc khách hàng', 'url' => url('/page/customer-service')],
+        ['title' => 'Sản phẩm mới & Xu hướng', 'url' => url('/page/whats-new')],
+        ['title' => 'Điều khoản sử dụng', 'url' => url('/page/terms-of-use')],
+        ['title' => 'Điều kiện giao dịch', 'url' => url('/page/terms-conditions')],
+    ];
+
+    $col2Links = $columns->get('column_2') ?? [
+        ['title' => 'Chính sách bảo mật', 'url' => url('/page/privacy-policy')],
+        ['title' => 'Chính sách thanh toán', 'url' => url('/page/payment-policy')],
+        ['title' => 'Chính sách vận chuyển', 'url' => url('/page/shipping-policy')],
+        ['title' => 'Chính sách đổi trả 1-1', 'url' => url('/page/return-policy')],
+        ['title' => 'Chính sách hoàn tiền', 'url' => url('/page/refund-policy')],
+    ];
 @endphp
 
 <footer
-    class="mt-9 bg-lightOrange max-sm:mt-10"
+    class="mt-16 w-full border-t border-[#e2e8f0] bg-white text-[#475569]"
     @if ($section && $sectionRepository->isPreviewing())
         data-section-id="{{ $section->id }}"
         data-section-name="{{ $section->name }}"
     @endif
 >
-    <div class="flex justify-between gap-x-6 gap-y-8 p-[60px] max-1060:flex-col-reverse max-md:gap-5 max-md:p-8 max-sm:px-4 max-sm:py-5">
-        <!-- For Desktop View -->
-        <div
-            class="grid min-w-0 flex-1 grid-cols-[repeat(auto-fill,minmax(160px,1fr))] items-start gap-x-6 gap-y-10 max-1060:hidden"
-            v-pre
-        >
-            @foreach ($columns as $footerLinkSection)
-                <ul class="grid gap-5 break-words text-sm">
-                    @foreach ($footerLinkSection as $link)
+    <!-- Container Footer Lớn & Rộng Rãi Đồng Bộ Toàn Trang (Max-Width 1440px) -->
+    <div style="max-width: 1440px; margin: 0 auto; padding: 60px 48px 48px; box-sizing: border-box;">
+        <div style="display: grid; grid-template-columns: 1.3fr 1fr 1fr 1.2fr; gap: 48px; align-items: start;">
+            
+            <!-- Cột 1: Thông tin Showroom ShopSiuu -->
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <h3 style="font-size: 21px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #0f172a; margin: 0 0 8px 0;">
+                    ShopSiuu Gaming Gear
+                </h3>
+                <p style="font-size: 16px; line-height: 1.7; color: #64748b; margin: 0 0 6px 0;">
+                    Hệ sinh thái phân phối thiết bị ngoại vi, phụ kiện bàn phím cơ và chuột gaming hi-end chính hãng hàng đầu.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; color: #64748b;">
+                    <p style="margin: 0;"><strong style="color: #1e293b;">Địa chỉ:</strong> 127e Lê, P. Tân Phú, TP. HCM</p>
+                    <p style="margin: 0;"><strong style="color: #1e293b;">Hotline:</strong> 0909 xxx xxx (08:30 - 21:30)</p>
+                    <p style="margin: 0;"><strong style="color: #1e293b;">Email:</strong> hotro@shopsiuu.vn</p>
+                </div>
+            </div>
+
+            <!-- Cột 2: Hỗ trợ khách hàng (Font Tiêu đề 21px, Chữ thường 16px) -->
+            <div style="display: flex; flex-direction: column; gap: 14px;" v-pre>
+                <h3 style="font-size: 21px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #0f172a; margin: 0 0 8px 0;">
+                    Hỗ Trợ Khách Hàng
+                </h3>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 16px;">
+                    @foreach ($col1Links as $link)
                         <li>
-                            <a href="{{ $link['url'] }}">
+                            <a
+                                href="{{ $link['url'] }}"
+                                style="color: #64748b; text-decoration: none; font-size: 16px; transition: color 0.2s;"
+                                onmouseover="this.style.color='#2563eb'"
+                                onmouseout="this.style.color='#64748b'"
+                            >
                                 {{ $link['title'] }}
                             </a>
                         </li>
                     @endforeach
                 </ul>
-            @endforeach
-        </div>
+            </div>
 
-        <!-- For Mobile view -->
-        <x-shop::accordion
-            :is-active="false"
-            class="hidden !w-full rounded-xl !border-2 !border-[#e9decc] max-1060:block max-sm:rounded-lg"
-        >
-            <x-slot:header class="rounded-t-lg bg-[#F1EADF] font-medium max-md:p-2.5 max-sm:px-3 max-sm:py-2 max-sm:text-sm">
-                @lang('shop::app.components.layouts.footer.footer-content')
-            </x-slot>
-
-            <x-slot:content class="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] items-start gap-x-6 gap-y-8 !bg-transparent !p-4">
-                @foreach ($columns as $footerLinkSection)
-                    <ul
-                        class="grid gap-5 break-words text-sm"
-                        v-pre
-                    >
-                        @foreach ($footerLinkSection as $link)
-                            <li>
-                                <a
-                                    href="{{ $link['url'] }}"
-                                    class="text-sm font-medium max-sm:text-xs"
-                                >
-                                    {{ $link['title'] }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endforeach
-            </x-slot>
-        </x-shop::accordion>
-
-        {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
-
-        <!-- News Letter subscription -->
-        @if (core()->getConfigData('customer.settings.newsletter.subscription'))
-            <div class="grid content-start gap-2.5">
-                <p
-                    class="max-w-[288px] text-3xl italic leading-[45px] text-navyBlue max-md:text-2xl max-sm:text-lg"
-                    role="heading"
-                    aria-level="2"
-                >
-                    @lang('shop::app.components.layouts.footer.newsletter-text')
-                </p>
-
-                <p class="text-xs">
-                    @lang('shop::app.components.layouts.footer.subscribe-stay-touch')
-                </p>
-
-                <div>
-                    <x-shop::form
-                        :action="route('shop.subscription.store')"
-                        class="mt-2.5 rounded max-sm:mt-0"
-                        toolname="subscribe_to_newsletter"
-                        tooldescription="{{ trans('shop::app.components.layouts.webmcp.subscribe-newsletter') }}"
-                        toolautosubmit
-                    >
-                        <div class="relative w-full">
-                            <x-shop::form.control-group.control
-                                type="email"
-                                class="block w-[420px] max-w-full rounded-xl border-2 border-[#e9decc] bg-[#F1EADF] px-5 py-4 text-base max-1060:w-full max-md:p-3.5 max-sm:mb-0 max-sm:rounded-lg max-sm:border-2 max-sm:p-2 max-sm:text-sm"
-                                name="email"
-                                rules="required|email"
-                                label="Email"
-                                :aria-label="trans('shop::app.components.layouts.footer.email')"
-                                placeholder="email@example.com"
-                                toolparamdescription="{{ trans('shop::app.components.layouts.webmcp.subscribe-newsletter-email') }}"
-                            />
-    
-                            <x-shop::form.control-group.error control-name="email" />
-    
-                            <button
-                                type="submit"
-                                class="absolute top-1.5 flex w-max items-center rounded-xl bg-white px-7 py-2.5 font-medium hover:bg-zinc-100 ltr:right-2 rtl:left-2 max-md:top-1 max-md:px-5 max-md:text-xs max-sm:mt-0 max-sm:rounded-lg max-sm:px-4 max-sm:py-2"
+            <!-- Cột 3: Chính sách chung (Font Tiêu đề 21px, Chữ thường 16px) -->
+            <div style="display: flex; flex-direction: column; gap: 14px;" v-pre>
+                <h3 style="font-size: 21px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #0f172a; margin: 0 0 8px 0;">
+                    Chính Sách Chung
+                </h3>
+                <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 16px;">
+                    @foreach ($col2Links as $link)
+                        <li>
+                            <a
+                                href="{{ $link['url'] }}"
+                                style="color: #64748b; text-decoration: none; font-size: 16px; transition: color 0.2s;"
+                                onmouseover="this.style.color='#2563eb'"
+                                onmouseout="this.style.color='#64748b'"
                             >
-                                @lang('shop::app.components.layouts.footer.subscribe')
-                            </button>
-                        </div>
-                    </x-shop::form>
+                                {{ $link['title'] }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
+            <!-- Cột 4: Đăng Ký Nhận Tin (Font Tiêu đề 21px, Chữ thường 16px) -->
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <h3 style="font-size: 21px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: #0f172a; margin: 0 0 8px 0;">
+                    Đăng Ký Nhận Tin
+                </h3>
+                <p style="font-size: 16px; line-height: 1.7; color: #64748b; margin: 0 0 6px 0;">
+                    Nhận voucher giảm giá 10% cho đơn hàng gaming gear đầu tiên của bạn.
+                </p>
+
+                {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.before') !!}
+
+                <form
+                    action="{{ route('shop.subscription.store') }}"
+                    method="POST"
+                    style="display: flex; align-items: stretch; width: 100%; margin: 8px 0 10px 0;"
+                >
+                    @csrf
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="Nhập email của bạn..."
+                        style="flex: 1; min-width: 0; height: 48px; padding: 0 16px; border: 1.5px solid #cbd5e1; border-right: none; border-radius: 8px 0 0 8px; font-size: 16px; color: #0f172a; outline: none; background: #ffffff; box-sizing: border-box;"
+                    />
+                    <button
+                        type="submit"
+                        style="height: 48px; padding: 0 24px; background-color: #2563eb; color: #ffffff; border: 1.5px solid #2563eb; border-radius: 0 8px 8px 0; font-size: 16px; font-weight: 600; cursor: pointer; white-space: nowrap; box-sizing: border-box; transition: background-color 0.2s;"
+                        onmouseover="this.style.backgroundColor='#1d4ed8'; this.style.borderColor='#1d4ed8';"
+                        onmouseout="this.style.backgroundColor='#2563eb'; this.style.borderColor='#2563eb';"
+                    >
+                        Gửi
+                    </button>
+                </form>
+
+                {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
+
+                <div style="font-size: 16px; font-weight: 600; color: #16a34a; margin-top: 4px;">
+                    ✓ Cam kết hàng chính hãng 100%
                 </div>
             </div>
-        @endif
 
-        {!! view_render_event('bagisto.shop.layout.footer.newsletter_subscription.after') !!}
+        </div>
     </div>
 
-    <div class="flex justify-between bg-[#F1EADF] px-[60px] py-3.5 max-md:justify-center max-sm:px-5">
+    <!-- Dòng Copyright chân trang (Font 16px căn giữa) -->
+    <div style="border-top: 1px solid #e2e8f0; background-color: #f8fafc; padding: 22px 24px; text-align: center; font-size: 16px; color: #64748b;">
         {!! view_render_event('bagisto.shop.layout.footer.footer_text.before') !!}
 
-        <p class="text-sm text-zinc-600 max-md:text-center">
+        <p style="margin: 0; font-size: 16px;">
             @if (core()->getConfigData('general.content.footer.copyright_content'))
                 {!! clean_content((string) core()->getConfigData('general.content.footer.copyright_content')) !!}
             @else
-                @lang('shop::app.components.layouts.footer.footer-text', ['current_year'=> date('Y') ])
+                © {{ date('Y') }} ShopSiuu Store – Hệ thống Thương mại Điện tử Đồ án Tốt nghiệp. All rights reserved.
             @endif
         </p>
 
