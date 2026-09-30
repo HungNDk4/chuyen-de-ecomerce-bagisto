@@ -1,71 +1,95 @@
+
 # ĐỒ ÁN CHUYÊN ĐỀ TỐT NGHIỆP: NGHIÊN CỨU & TRIỂN KHAI HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ
 
 ## 1. THÔNG TIN ĐỀ TÀI & NHÓM THỰC HIỆN
 * **Tên đề tài:** Nghiên cứu kiến trúc, quy trình phát triển và tối ưu hóa hệ quản trị cơ sở dữ liệu cho hệ thống thương mại điện tử chuyên nghiệp.
 * **Thời gian thực hiện:** Tháng 09/2026 – Tháng 10/2026
 * **Danh sách thành viên nhóm:**
-  1. Nguyễn Duy Hùng (Leader / Tech Lead) - Quản trị mã nguồn & Triển khai hạ tầng
-  2. Thành viên 2 - Quản lý dự án (Jira) & Phân tích nghiệp vụ (BA)
-  3. Thành viên 3 - Đảm bảo chất lượng (QA/Tester) & Giao diện người dùng
-  4. Thành viên 4 - Khảo sát cấu trúc dữ liệu & Thiết kế lược đồ ERD
-  5. Thành viên 5 - Kỹ thuật CSDL nâng cao (Cloud Media, Full-text Search, Bcrypt)
+  1. Nguyễn Duy Hùng (Leader / Tech Lead) - Quản trị mã nguồn, hạ tầng & cơ sở dữ liệu mẫu
+  2. Thành viên 2 - Quản trị quy trình phần mềm (Jira Kanban) & Thiết kế mô hình Use Case / Activity Diagram
+  3. Thành viên 3 - Đảm bảo chất lượng (QA/Tester) & Khảo sát giao diện người dùng (Storefront / Admin)
+  4. Thành viên 4 - Khảo sát cấu trúc dữ liệu, trích xuất & phân tích lược đồ quan hệ thực thể (ERD)
+  5. Thành viên 5 - Kỹ thuật CSDL nâng cao (Bảo mật băm Bcrypt, Cloud Media Offloading, Full-text Search)
 
 ---
 
 ## 2. TUYÊN BỐ LIÊM CHÍNH HỌC THUẬT (ACADEMIC INTEGRITY)
-Hệ thống mã nguồn này được kế thừa và triển khai dựa trên nền tảng thương mại điện tử mã nguồn mở **Bagisto (Laravel Framework + Vue.js)**.
+Hệ thống mã nguồn này được kế thừa và triển khai thực nghiệm dựa trên nền tảng thương mại điện tử mã nguồn mở **Bagisto (Laravel Framework + Vue.js)**.
 
-Nhóm sử dụng hệ sinh thái này làm **môi trường thực nghiệm đối chứng** để phục vụ công tác phân tích học thuật cho 02 học phần:
-* **Chuyên đề 1 (Hệ Quản Trị Cơ Sở Dữ Liệu):** Khảo sát cấu trúc quan hệ RDBMS, mô hình hóa dữ liệu (ERD), đánh giá cơ chế bảo mật băm mật khẩu Bcrypt, phân tích giải pháp tách tải dữ liệu Media lên Cloud (Cloudinary/AWS S3) và tối ưu hóa truy vấn Full-text Search.
-* **Chuyên đề 2 (Quy Trình & Phát Triển Phần Mềm):** Thiết lập quy trình phát triển phần mềm theo mô hình Agile/Scrum qua Jira, quản trị phiên bản mã nguồn Git/GitHub, mô hình hóa Use Case/Activity Diagram và thực thi bộ kịch bản kiểm thử chức năng (15–20 Test Cases).
+Nhóm sử dụng hệ sinh thái này làm **môi trường thực nghiệm đối chứng** nhằm phục vụ công tác phân tích, đánh giá học thuật chuyên sâu cho 02 học phần:
+* **Chuyên đề 1 (Hệ Quản Trị Cơ Sở Dữ Liệu):** Khảo sát cấu trúc quan hệ RDBMS, mô hình hóa dữ liệu (ERD), đánh giá cơ chế bảo mật mật khẩu một chiều (Bcrypt), phân tích kiến trúc bảng phẳng `product_flat`, đề xuất giải pháp tách tải dữ liệu Media lên Cloud (Cloudinary/AWS S3) và tối ưu hóa truy vấn Full-text Search tiếng Việt.
+* **Chuyên đề 2 (Quy Trình & Phát Triển Phần Mềm):** Thiết lập quy trình phát triển phần mềm theo mô hình Agile/Kanban trên Jira Software, quản trị phiên bản và luồng đóng góp mã nguồn qua Git/GitHub, mô hình hóa phân rã chức năng qua sơ đồ Use Case và Activity Diagram, thực thi bộ kịch bản kiểm thử hộp đen (15–20 Test Cases chức năng).
 
 ---
 
 ## 3. CÔNG NGHỆ SỬ DỤNG
 * **Backend:** PHP 8.x, Laravel Framework
 * **Frontend:** Blade Template, Vue.js, Tailwind CSS
-* **Database:** MySQL (Hệ quản trị CSDL quan hệ)
-* **Quản lý & Triển khai:** Laragon, Git, Jira Software, Ngrok
+* **Database:** MySQL / MariaDB (Hệ quản trị CSDL quan hệ RDBMS)
+* **Công cụ hỗ trợ & Vận hành:** Laragon, HeidiSQL, DBeaver, Git, Jira Software, Ngrok
 
 ---
 
-## 4. HƯỚNG DẪN CÀI ĐẶT MÔI TRƯỜNG THỰC NGHIỆM (LOCAL)
+## 4. HƯỚNG DẪN CÀI ĐẶT DỰ ÁN & IMPORT DATABASE MẪU (DÀNH CHO THÀNH VIÊN)
 
-### Yêu cầu tiên quyết:
-* PHP >= 8.1 (bật đầy đủ extension: `fileinfo`, `intl`, `gd`, `zip`, `pdo_mysql`)
-* Composer, Node.js & MySQL (Laragon/XAMPP)
-## 4. HƯỚNG DẪN CÀI ĐẶT HỆ THỐNG CHI TIẾT (DÀNH CHO THÀNH VIÊN & NGƯỜI DÙNG)
+> **LƯU Ý QUAN TRỌNG:** 
+> Dữ liệu mẫu (gồm danh mục, sản phẩm, cấu hình kênh và tài khoản admin) đã được kết xuất sẵn trong file: `mockdata/database1.1.sql` (hoặc `database.sql`).
+> Thành viên **TUYỆT ĐỐI KHÔNG** chạy các lệnh `php artisan bagisto:install` hoặc `php artisan migrate:fresh` để tránh xung đột môi trường và làm mất dữ liệu mẫu của nhóm.
 
-> **LƯU Ý QUAN TRỌNG:** Dự án đã có sẵn Database hoàn chỉnh trong file `mockdata/database1.1.sql`. Thành viên **KHÔNG** chạy lệnh `bagisto:install` để tránh xung đột môi trường. Hãy làm tuần tự theo 4 bước dưới đây:
+### Yêu cầu môi trường bắt buộc (Sử dụng Laragon):
+1. Bật **Laragon**, bấm **Start All** để khởi chạy cả **Apache** và **MySQL**.
+2. Kiểm tra Extension PHP: Nhấp chuột phải vào màn hình Laragon -> **PHP** -> **Extensions** -> Đảm bảo đã tích chọn: `pdo_mysql`, `fileinfo`, `intl`, `gd`, `zip`.
 
-### Bước 1: Yêu cầu môi trường bắt buộc (Laragon / XAMPP)
-* Bật **Laragon** (hoặc XAMPP), khởi động **Apache** và **MySQL**.
-* **Kích hoạt các Extension PHP bắt buộc:**
-  * Nhấp chuột phải trên màn hình Laragon -> **PHP** -> **Extensions**.
-  * Tích chọn đủ các extension: `pdo_mysql`, `fileinfo`, `intl`, `gd`, `zip`.
+---
 
-### Bước 2: Nạp dữ liệu Cơ sở dữ liệu mẫu (10 giây)
-1. Mở phần mềm **HeidiSQL** (có sẵn trong Laragon) hoặc **phpMyAdmin** (`http://localhost/phpmyadmin`).
-2. Tạo một Database mới đặt tên là: `bagisto_db` (định dạng `utf8mb4_unicode_ci`).
-3. Mở file `mockdata/database1.1.sql` có trong thư mục dự án và thực thi (Execute / Import) toàn bộ vào database `bagisto_db`.
+### BƯỚC 1: IMPORT DATABASE MẪU VÀO MÁY (Chọn 1 trong 2 cách)
 
-### Bước 3: Khởi tạo mã nguồn & Cấu hình môi trường (.env)
-Mở Terminal của Laragon tại thư mục dự án (`bagisto-store`), chạy lần lượt:
+#### Cách A: Import trực quan bằng HeidiSQL (Khuyên dùng - Nhanh nhất)
+1. Trên giao diện chính của **Laragon**, bấm nút **Database** (phần mềm **HeidiSQL** tích hợp sẵn sẽ tự động mở lên).
+2. Bấm nút **Open** ở góc dưới bên phải để kết nối vào máy chủ MySQL.
+3. Tạo Database mới:
+   * Nhấp chuột phải vào khoảng trống ở cột danh sách cơ sở dữ liệu bên trái -> chọn **Create new** -> chọn **Database**.
+   * Đặt tên: `bagisto_db`
+   * Bảng mã (Collation): chọn `utf8mb4_unicode_ci` -> Bấm **OK**.
+4. Nạp dữ liệu:
+   * Trên thanh menu chính của HeidiSQL, vào thẻ **Tools** (Công cụ) -> chọn **Load SQL file...** (hoặc nhấn phím tắt `Ctrl + O`).
+   * Tìm và mở file `mockdata/database1.1.sql` (hoặc `database.sql`) nằm trong thư mục dự án vừa tải về.
+   * HeidiSQL hỏi có muốn chạy file không, bấm **Execute** (hoặc bấm biểu tượng tam giác màu xanh / phím `F9`).
+   * Chờ thanh tiến trình hoàn tất (mất khoảng 5–10 giây). Nhấn `F5` để kiểm tra: toàn bộ các bảng `products`, `categories`, `admins`... đã hiển thị đầy đủ dữ liệu.
+
+#### Cách B: Import nhanh bằng Terminal / Dòng lệnh
+Nếu quen dùng dòng lệnh, mở nút **Terminal** trên giao diện Laragon và chạy:
+```bash
+# 1. Tạo CSDL bagisto_db
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS bagisto_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+# 2. Nạp dữ liệu từ file sql vào database
+mysql -u root bagisto_db < mockdata/database1.1.sql
 
 ```
-# 1. Cài đặt các gói phụ thuộc PHP
-composer install
 
-# 2. Tạo file cấu hình môi trường
+---
+
+### BƯỚC 2: CẤU HÌNH BIẾN MÔI TRƯỜNG (.ENV)
+
+Tại thư mục dự án, tạo file `.env` từ file mẫu và thiết lập các thông số:
+
+```bash
+# Tạo file cấu hình môi trường
 copy .env.example .env
 
-# 3. Tạo khóa bảo mật ứng dụng
+# Sinh khóa bí mật ứng dụng
 php artisan key:generate
-```
-Mở file .env kiểm tra lại cấu hình kết nối CSDL:
 
 ```
+
+Mở file `.env` bằng Notepad / VS Code, kiểm tra đúng các dòng kết nối CSDL như sau:
+
+```ini
 APP_NAME=Bagisto
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
 APP_URL=[http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 DB_CONNECTION=mysql
@@ -74,46 +98,79 @@ DB_PORT=3306
 DB_DATABASE=bagisto_db
 DB_USERNAME=root
 DB_PASSWORD=
+
 ```
-(Nếu dùng Laragon mặc định, dòng DB_PASSWORD= để trống).
-Bước 4: Xử lý hiển thị hình ảnh & Khởi chạy máy chủ
-```
-# 1. Tạo symlink liên kết thư mục chứa ảnh
+
+*(Lưu ý: Mặc định trên Laragon, biến `DB_PASSWORD=` để trống hoàn toàn sau dấu bằng).*
+
+---
+
+### BƯỚC 3: CÀI ĐẶT THƯ VIỆN & XỬ LÝ LIÊN KẾT ẢNH (STORAGE)
+
+Mở cửa sổ **Terminal** trên Laragon, di chuyển vào thư mục dự án và chạy các lệnh:
+
+```bash
+# 1. Cài đặt các thư viện phụ thuộc PHP (nếu chưa tải vendor)
+composer install
+
+# 2. Tạo symlink liên kết thư mục chứa hình ảnh sản phẩm/banner
 php artisan storage:link
 
-# 2. Xóa sạch bộ nhớ đệm cache hệ thống
+# 3. Dọn sạch toàn bộ cache hệ thống
 php artisan optimize:clear
 
-# 3. Khởi động máy chủ ứng dụng
-php artisan serve
 ```
-⚠️ KHẮC PHỤC SỰ CỐ THƯỜNG GẶP (TROUBLESHOOTING)
 
-Lỗi vỡ ảnh banner / Không hiển thị hình ảnh sản phẩm:
+---
 
-Do đặc thù môi trường Windows chặn tạo symlink tự động, nếu trang web bị gãy ảnh (chỉ hiện icon ô vuông hoặc text alt):
+### BƯỚC 4: KHỞI ĐỘNG VÀ TRUY CẬP HỆ THỐNG
 
-Mở Windows Explorer, vào thư mục: storage/app/public/
+Khởi động máy chủ phát triển Laravel:
 
-Sao chép (Copy) toàn bộ thư mục bên trong (gồm themes, products, banners...) và dán trực tiếp (Paste) vào thư mục: public/storage/ (nếu chưa có thư mục storage trong public thì tạo mới).
+```bash
+php artisan serve
 
-Chạy lại lệnh: php artisan optimize:clear và nhấn tổ hợp phím Ctrl + F5 trên trình duyệt.
+```
 
-Lỗi php hoặc composer không nhận lệnh trong Terminal:
+---
 
-Hãy mở trực tiếp cửa sổ dòng lệnh bằng cách bấm nút Terminal ở góc phải giao diện Laragon để nạp đầy đủ biến môi trường hệ thống.
+## 5. THÔNG TIN TRUY CẬP HỆ THỐNG & TÀI KHOẢN MẪU
 
-
-## 5. THÔNG TIN TRUY CẬP THỬ NGHIỆM
-
-Storefront (Khách hàng): [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-Admin Panel (Quản trị): [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
-
-Email: admin@example.com
-
-Password: admin123
+* **Giao diện người dùng (Storefront):** [http://127.0.0.1:8000](https://www.google.com/url?sa=E&source=gmail&q=http://127.0.0.1:8000)
+*(Dùng cho Thành viên 3 chụp ảnh sản phẩm, giỏ hàng, checkout và thực thi bảng Test Cases)*
+* **Giao diện trang quản trị (Admin Panel):** [http://127.0.0.1:8000/admin](https://www.google.com/search?q=http://127.0.0.1:8000/admin)
+* **Email đăng nhập:** `admin@example.com`
+* **Mật khẩu (Password):** `admin123`
 
 
 
+---
 
+## 6. HƯỚNG DẪN KHẮC PHỤC SỰ CỐ THƯỜNG GẶP (TROUBLESHOOTING)
+
+* **Lỗi vỡ ảnh banner / Không hiện ảnh sản phẩm:**
+* Do hệ điều hành Windows chặn quyền tạo Symlink tự động: Bạn mở File Explorer, vào thư mục `storage/app/public/`.
+* Sao chép (Copy) toàn bộ các thư mục con bên trong (gồm `themes`, `products`, `banners`...) và dán trực tiếp (Paste) vào thư mục `public/storage/` (nếu chưa có thư mục storage trong `public/` thì tạo mới).
+* Chạy lại lệnh: `php artisan optimize:clear` và nhấn tổ hợp phím **Ctrl + F5** trên trình duyệt.
+
+
+* **Lỗi Terminal không nhận lệnh PHP/Composer:**
+* Bắt buộc mở Terminal bằng cách bấm trực tiếp vào nút **Terminal** trên giao diện chính của Laragon để nạp đầy đủ đường dẫn biến môi trường.
+
+
+* **Lỗi không đăng nhập được tài khoản Admin:**
+* Kiểm tra lại bảng `admins` trong HeidiSQL xem email quản trị viên có đúng là `admin@example.com` không.
+
+
+
+```
+
+---
+
+### Hướng dẫn bạn cập nhật nhanh lên GitHub:
+1. Mở trang repo của bạn: [https://github.com/HungNDk4/chuyen-de-ecomerce-bagisto](https://github.com/HungNDk4/chuyen-de-ecomerce-bagisto) [source: 2]
+2. Bấm vào file `README.md` -> bấm vào biểu tượng **Cây bút chì (Edit this file)** [source: 2].
+3. Xóa nội dung cũ và dán toàn bộ đoạn văn bản ở trên vào [source: 2].
+4. Kéo xuống dưới cùng bấm nút xanh **Commit changes** [source: 2]. Cả nhóm mở ra sẽ thấy hướng dẫn từng bước rõ ràng, dễ làm theo [source: 2].
+
+```
