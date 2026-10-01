@@ -35,7 +35,7 @@ generatedProductName.json
 /public/css
 /public/js
 /public/hot
-/public/storage
+# /public/storage
 /public/vendor
 /lang/vendor
 skills-lock.json
@@ -45,3 +45,6 @@ skills-lock.json
 /vendor
 yarn.lock
 yarn-error.log
+
+!storage/app/public/**
+!public/storage/**
