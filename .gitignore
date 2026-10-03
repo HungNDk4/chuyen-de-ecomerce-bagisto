@@ -3,6 +3,8 @@
 .claude
 .cursor
 .env
+.env.backup
+.env.production
 .env.testing
 .idea
 .mcp.json
@@ -35,7 +37,6 @@ generatedProductName.json
 /public/css
 /public/js
 /public/hot
-# /public/storage
 /public/vendor
 /lang/vendor
 skills-lock.json
@@ -46,5 +47,24 @@ skills-lock.json
 yarn.lock
 yarn-error.log
 
-!storage/app/public/**
-!public/storage/**
+# ==========================================
+# CẤU HÌNH NGOẠI LỆ ĐẶC BIỆT CHO ĐỒ ÁN (GIỮ NGUYÊN)
+# ==========================================
+
+# 1. Bắt buộc giữ file index.php và .htaccess để chạy server không bị crash
+!/public/index.php
+!/public/.htaccess
+!/public/robots.txt
+!/public/favicon.ico
+
+# 2. Mở khóa toàn bộ ảnh mẫu trong storage/app/public/
+!/storage/app/public/
+!/storage/app/public/**
+
+# 3. Mở khóa thư mục public/storage/ phòng khi đẩy symlink tĩnh
+!/public/storage/
+!/public/storage/**
+
+# 4. Bắt buộc giữ thư mục database mẫu
+!/mockdata/
+!/mockdata/**
