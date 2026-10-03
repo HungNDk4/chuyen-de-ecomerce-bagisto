@@ -47,24 +47,27 @@ skills-lock.json
 yarn.lock
 yarn-error.log
 
-# ==========================================
-# CẤU HÌNH NGOẠI LỆ ĐẶC BIỆT CHO ĐỒ ÁN (GIỮ NGUYÊN)
-# ==========================================
-
-# 1. Bắt buộc giữ file index.php và .htaccess để chạy server không bị crash
+# ==================================================
+# NGOẠI LỆ BẮT BUỘC ĐỂ DỰ ÁN CLONE LÀ CHẠY NGAY
+# ==================================================
+# 1. Giữ file thực thi web
 !/public/index.php
 !/public/.htaccess
 !/public/robots.txt
 !/public/favicon.ico
 
-# 2. Mở khóa toàn bộ ảnh mẫu trong storage/app/public/
+# 2. Giữ toàn bộ bản build giao diện themes (Tránh lỗi ViteManifest)
+!/public/themes/
+!/public/themes/**
+
+# 3. Giữ toàn bộ ảnh gốc trong storage
 !/storage/app/public/
 !/storage/app/public/**
 
-# 3. Mở khóa thư mục public/storage/ phòng khi đẩy symlink tĩnh
-!/public/storage/
-!/public/storage/**
-
-# 4. Bắt buộc giữ thư mục database mẫu
+# 4. Giữ thư mục chứa database mẫu và script tự động
 !/mockdata/
 !/mockdata/**
+!setup.bat
+
+# 5. KHÔNG commit symlink public/storage để tránh lỗi text rác trên Windows
+public/storage
