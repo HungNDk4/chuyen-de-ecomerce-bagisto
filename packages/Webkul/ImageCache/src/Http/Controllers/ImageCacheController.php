@@ -202,17 +202,17 @@ class ImageCacheController extends Controller
         $paths = config('imagecache.paths', []);
 
         foreach ($paths as $basePath) {
-            $basePath = realpath(rtrim($basePath, '/'));
+            $basePath = realpath(rtrim($basePath, '/\\'));
 
             if (! $basePath) {
                 continue;
             }
 
-            $realPath = realpath($basePath.'/'.$filename);
+            $realPath = realpath($basePath.DIRECTORY_SEPARATOR.$filename);
 
             if (
                 $realPath
-                && str_starts_with($realPath, $basePath.'/')
+                && str_starts_with($realPath, $basePath.DIRECTORY_SEPARATOR)
             ) {
                 return $realPath;
             }
@@ -221,11 +221,11 @@ class ImageCacheController extends Controller
         $storageBase = realpath(storage_path('app/public'));
 
         if ($storageBase) {
-            $realPath = realpath($storageBase.'/'.$filename);
+            $realPath = realpath($storageBase.DIRECTORY_SEPARATOR.$filename);
 
             if (
                 $realPath
-                && str_starts_with($realPath, $storageBase.'/')
+                && str_starts_with($realPath, $storageBase.DIRECTORY_SEPARATOR)
             ) {
                 return $realPath;
             }
@@ -234,11 +234,11 @@ class ImageCacheController extends Controller
         $publicBase = realpath(public_path());
 
         if ($publicBase) {
-            $realPath = realpath($publicBase.'/'.$filename);
+            $realPath = realpath($publicBase.DIRECTORY_SEPARATOR.$filename);
 
             if (
                 $realPath
-                && str_starts_with($realPath, $publicBase.'/')
+                && str_starts_with($realPath, $publicBase.DIRECTORY_SEPARATOR)
             ) {
                 return $realPath;
             }
@@ -247,11 +247,11 @@ class ImageCacheController extends Controller
         $storagePublicBase = realpath(public_path('storage'));
 
         if ($storagePublicBase) {
-            $realPath = realpath($storagePublicBase.'/'.$filename);
+            $realPath = realpath($storagePublicBase.DIRECTORY_SEPARATOR.$filename);
 
             if (
                 $realPath
-                && str_starts_with($realPath, $storagePublicBase.'/')
+                && str_starts_with($realPath, $storagePublicBase.DIRECTORY_SEPARATOR)
             ) {
                 return $realPath;
             }
