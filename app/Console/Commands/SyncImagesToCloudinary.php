@@ -119,13 +119,19 @@ class SyncImagesToCloudinary extends Command
             $maxRetries = 3;
             $uploaded = false;
 
+            $options = [
+                'public_id' => $publicId,
+                'resource_type' => 'auto',
+                'overwrite' => $overwrite,
+            ];
+
+            if ($dirname !== '.' && ! empty($dirname)) {
+                $options['asset_folder'] = $dirname;
+            }
+
             for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
                 try {
-                    $uploadApi->upload($file->getRealPath(), [
-                        'public_id' => $publicId,
-                        'resource_type' => 'auto',
-                        'overwrite' => $overwrite,
-                    ]);
+                    $uploadApi->upload($file->getRealPath(), $options);
 
                     $uploadedCount++;
                     $uploaded = true;

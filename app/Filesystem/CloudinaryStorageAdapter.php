@@ -152,15 +152,22 @@ class CloudinaryStorageAdapter extends BaseCloudinaryStorageAdapter
 
         $uploadApi = $this->createRobustUploadApi();
 
-        $maxRetries = 3;
+        $folder = dirname($path);
+        $folder = ($folder !== '.' && ! empty($folder)) ? str_replace('\\', '/', $folder) : null;
+
+        $options = [
+            'public_id' => $id,
+            'resource_type' => $type,
+            'overwrite' => true,
+        ];
+
+        if ($folder) {
+            $options['asset_folder'] = $folder;
+        }
 
         for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
             try {
-                $uploadApi->upload($localPath, [
-                    'public_id' => $id,
-                    'resource_type' => $type,
-                    'overwrite' => true,
-                ]);
+                $uploadApi->upload($localPath, $options);
 
                 return;
             } catch (\Throwable $e) {
