@@ -165,6 +165,8 @@ class CloudinaryStorageAdapter extends BaseCloudinaryStorageAdapter
             $options['asset_folder'] = $folder;
         }
 
+        $maxRetries = 3;
+
         for ($attempt = 1; $attempt <= $maxRetries; $attempt++) {
             try {
                 $uploadApi->upload($localPath, $options);
